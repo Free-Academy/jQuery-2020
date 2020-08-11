@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试在线应用jquery</title>
+    <script type="text/javascript" src="http://localhost:8080/jquery/base.js"></script>
+    <script type="text/javascript" src="http://localhost:8080/jquery/jquery-3.5.1.min.js"></script>
+<!--    <script type="text/javascript" src="./js/jquery-3.5.1.min.js"></script>-->
+<!--    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>-->
+    <script type="text/javascript">
+        //原生js，页面内容加载完成，原生入口函数：window.onload = function(){}
+        window.onload = function () {
+            console.log("hello javascript，第一个原生js实现")
+        };
+        window.onload = function () {
+            console.log("hello javascript，第二个原生js实现")
+        };
+        //jquery入口函数几种实现方式：
+        //1
+        $(window).ready(function () {
+            console.log("hello jquery，第一种实现方式")
+        });
+        //2
+        $(document).ready(function () {
+            console.log("hello jquery，第二种实现方式");
+        });
+        //3
+        $(function () {
+            console.log("hello jquery，第三种实现方式")
+        });
+    </script>
+</head>
+<body>
+<h1>Hello, jQuery!</h1>
+</body>
+</html>

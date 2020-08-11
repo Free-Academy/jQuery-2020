@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>chapter1-3</title>
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+        /*
+        选择器基本语法：$("")
+
+        基本选择器：
+            根据id选择：
+            根据元素名选择：选中dom中全部对应名称的元素，以数组形式返回
+            根据class属性选择
+            组合选择方式
+         */
+        $(function () {
+            console.log("start selector...");
+            //选择器，基本语法：$("")
+            //基本选择器
+            //id
+            let userName1 = $("#user_name");
+            // console.log(userName1)
+            // console.log(userName1.val())
+
+            //class
+            let intputText = $(".class_attr");
+            // console.log(intputText);
+
+            //html标签
+            let input = $("input");
+            // console.log(input);
+
+            //筛选器
+            //基本筛选器
+            // let li_first = $("li:first");
+            // console.log(li_first);
+            // let li_0 = $("li:eq(0)");
+            // console.log(li_0);
+            // let li_1 = $("li:eq(1)");
+            // console.log(li_1);
+            // let li_2 = $("li:eq(2)");
+            // console.log(li_2);
+            // let liArr = $("li:gt(0)");// 下标 > 给定数字，不包含给定下标的元素
+            // console.log(liArr);
+            //奇数行
+            let trArr = $("tr:odd");
+            // console.log(trArr)
+            //各行换色
+            // $("tr:odd").css("background-color", "grey");
+
+            //内容筛选器，使用时注意多重标签嵌套的问题
+            let divArr1 = $("div:contains('少年')");
+            // console.log(divArr);
+            let liArr = $("li:contains('第')")
+            // console.log(liArr);
+            let divArr2 = $("div:contains('第')")
+            // console.log(divArr2);
+            //内容为空，没有文本(空格也不行)，没有子标签
+            let emptyDiv = $("div:empty");
+            // console.log(emptyDiv);
+            //属性筛选器
+            let attrArr1 = $("input[class='class_attr']");
+            // console.log(attrArr1);
+            let attrArr2= $("input[class!='class_attr']");
+            // console.log(attrArr2);
+        })
+    </script>
+    <style type="text/css">
+        .top_div {
+            margin-top: 20px;
+            margin-bottom: 50px;
+        }
+        .top_div .page_header_span {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        table {
+            border: 1px solid grey;
+            width: 260px;
+        }
+        table tr td {
+            border: 1px solid grey;
+        }
+    </style>
+</head>
+<body>
+    <div id="main" align="center">
+        <div class="top_div">
+            <span class="page_header_span">jQuery选择器</span>
+        </div>
+        <div id="selector1" style="border: 1px solid red; width: 300px; height: 160px;">
+            <span class="class_attr">基本选择器举例：</span>
+            <br>
+            用户名：<input id="user_name" value="张三" class="class_attr" />
+            <br>
+            任职公司：<input id="employer" value="阿里巴巴" class="class_attr" />
+            <br>
+            职位：<input id="position" value="java技术专家" />
+            <br>
+            级别：<input id="level" value="P7" />
+            <br>
+            按钮：<input id="btn1" type="button" value="test 按钮" />
+        </div>
+        <br>
+        <div id="selector2" style="height: 340px; width: 300px; border: 1px solid blue;">
+            <span class="class_attr">筛选器举例：</span>
+            <li id="li_1">第一行</li>
+            <li id="li_2">第二行</li>
+            <li id="li_3">第三行</li>
+            <br>
+            <table>
+                <tr>
+                    <td>a1</td>
+                    <td>a2</td>
+                    <td>a3</td>
+                    <td>a4</td>
+                </tr>
+                <tr>
+                    <td>b1</td>
+                    <td>b2</td>
+                    <td>b3</td>
+                    <td>b4</td>
+                </tr>
+                <tr>
+                    <td>c1</td>
+                    <td>c2</td>
+                    <td>c3</td>
+                    <td>c4</td>
+                </tr>
+                <tr>
+                    <td>d1</td>
+                    <td>d2</td>
+                    <td>d3</td>
+                    <td>d4</td>
+                </tr>
+            </table>
+            <div id="shaoniao1">少年强则国家强</div>
+            <div id="shaonian2">少年时代</div>
+            <div id="bandaoti">半导体材料</div>
+            <div id="empty1"></div>
+            <div id="empty2"> </div>
+            <br>
+        </div>
+    </div>
+</body>
+</html>
