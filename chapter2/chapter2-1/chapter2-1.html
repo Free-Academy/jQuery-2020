@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>chapter2-1 事件入门demo</title>
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+        $().ready(function () {
+            //ready 事件
+            console.log("hello ready");
+            //click事件
+            $("#btn").click(function () {
+                console.log("click button")
+            });
+        })
+    </script>
+</head>
+<body>
+chapter2-1 jQuery事件：
+<br>
+$().ready()：ready事件，dom加载完成后，出发ready事件
+<br>
+<br>
+<button id="btn">点我点我点我</button>
+<br>
+click()事件：点击button时触发
+</body>
+</html>

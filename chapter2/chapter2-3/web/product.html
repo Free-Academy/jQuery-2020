@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品列表</title>
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#load-panel").hide();
+            $("#data-panel").hide();
+            //get ajax
+            $("#load-product-btn-get").click(function () {
+                $("#data-panel").hide();
+                $("#load-panel").show();
+                $.get(
+                    "product/list.do",
+                    function (response) {
+                        console.log(response);
+                        //渲染数据
+                        let productArr = response.data;
+                        let data = "<tr><td>商品编号</td><td>商品名称</td><td>供应商</td><td>规格名称</td><td>规格属性</td></tr>";
+                        $.each(productArr, function (i, p) {
+                            let row = "<tr>";
+                            row = row + "<td>"+ p.id +"</td>";
+                            row = row + "<td>"+ p.productName +"</td>";
+                            row = row + "<td>"+ p.supplier.suppName +"</td>";
+                            row = row + "<td>"+ p.specs.specName +"</td>";
+                            row = row + "<td>"+ p.specs.specAttr +"</td>";
+                            row = row + "</tr>";
+                            data = data + row;
+                        });
+                        $("table").html(data);
+                        $("table");
+                        $("#load-panel").hide();
+                        $("#data-panel").show();
+                    },
+                    "json"
+                );
+            });
+            //post ajax
+            $("#load-product-btn-post").click(function () {
+                $("#data-panel").hide();
+                $("#load-panel").show();
+                $.post(
+                    "product/list.do",
+                    "{'key1':'val1','key2':val2}",//后台接受参数不再验证，servlet接收post参数比较繁琐，以后学完springmvc，按这种格式传参，后台验证一下就行
+                    function (response) {
+                        loadData(response);
+                    },
+                    "json"
+                );
+            });
+
+            //渲染数据
+            function loadData(response) {
+                console.log(response);
+                //渲染数据
+                let productArr = response.data;
+                let data = "<tr><td>商品编号</td><td>商品名称</td><td>供应商</td><td>规格名称</td><td>规格属性</td></tr>";
+                $.each(productArr, function (i, p) {
+                    let row = "<tr>";
+                    row = row + "<td>"+ p.id +"</td>";
+                    row = row + "<td>"+ p.productName +"</td>";
+                    row = row + "<td>"+ p.supplier.suppName +"</td>";
+                    row = row + "<td>"+ p.specs.specName +"</td>";
+                    row = row + "<td>"+ p.specs.specAttr +"</td>";
+                    row = row + "</tr>";
+                    data = data + row;
+                });
+                $("table").html(data);
+                $("table");
+                $("#load-panel").hide();
+                $("#data-panel").show();
+            }
+
+        });
+    </script>
+</head>
+<body>
+<div id="main-panel">
+    <div id="list-panel" style="border: 1px solid burlywood; width: 1200px; height: 600px;">
+        <div id="list-top">
+            <button id="load-product-btn-get">加载商品列表(get请求)</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="load-product-btn-post">加载商品列表(post请求)</button>
+        </div>
+        <hr>
+        <div id="data-panel">
+            <table style="width: 1199px; background-color: blanchedalmond;" border="1px" cellspacing="1px" cellpadding="1px">
+            </table>
+        </div>
+        <div id="load-panel">
+            正在加载数据......
+        </div>
+    </div>
+</div>
+</body>
+</html>

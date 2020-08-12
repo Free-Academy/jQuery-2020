@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jqeury 事件</title>
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //button的click事件
+            $("#btn1").click(function () {
+                console.log("btn1 被点击");
+                //hide事件，当前元素隐藏
+                $(this).hide();
+            });
+            //div click事件
+            let divClickCount = 1;
+            $("div:eq(0)").click(function () {
+                console.log("div 被点击")
+                // $(this).hide();
+                // $(this).text(divClickCount);
+                $(this).html("<h1>" + divClickCount + "</h1>");
+                divClickCount++;
+            });
+            //div dblclick 鼠标双击
+            $("div:eq(1)").dblclick(function () {
+                console.log("div 双击事件")
+                $(this).text("鼠标点击次数：" + mouseDownCount);
+            });
+            //mousedown 鼠标移动到标签元素上方，并按下鼠标按键时触发，统计鼠标点击次数，验证上文的双击
+            var mouseDownCount = 0;
+            $("div:eq(1)").mousedown(function () {
+                mouseDownCount++;
+            });
+
+            //hover
+            $("div:eq(1)").hover(
+                //鼠标移动到当前元素之上时，触发第一个函数
+                function () {
+                    $(this).css("background-color", "blue");
+                },
+                //鼠标移出当前元素时，触发第二个函数
+                function () {
+                    $(this).css("background-color", "grey");
+                }
+            );
+
+        });
+    </script>
+</head>
+<body>
+<h2>jQuery事件</h2>
+click事件：鼠标点击
+<br>
+<button id="btn1">点我消失</button>
+<div style="width: 400px; height: 60px; background-color: orange;"></div>
+<br>
+<div style="width: 400px; height: 60px; background-color: grey ;"></div>
+
+</body>
+</html>

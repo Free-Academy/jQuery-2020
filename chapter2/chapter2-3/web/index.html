@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery ajax</title>
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            console.log("hello ajax");
+
+            $("#loading-panel").hide();
+            $("#user-detail-panel").hide();
+
+            $("#btn1").click(function () {
+                $("#user-detail-panel").hide();
+                $("#loading-panel").show();
+                //jquery底层ajax实现
+                let requestParams = "{'key1':'val1','key2':'val2'}";
+                $.ajax({
+                    url: "ajax/test.do",//接口地址
+                    data: "data=" + requestParams,//向服务器发送的数据
+                    type: "POST",//请求方式
+                    complete: function (xhr) {
+                        $("#loading-panel").hide();
+                        $("#user-detail-panel").show();
+                        // console.log(xhr);
+                        // console.log(xhr.responseText);
+                        let respText = xhr.responseText;
+                        let respJSON = $.parseJSON(respText) ;
+                        console.log(respJSON);
+                        let data = respJSON.data;
+                        console.log(data);
+                        $("#userid-span").text(data.id);
+                        $("#user-name-span").text(data.userName);
+                        $("#password-spen").text(data.password);
+                        $("#nick-name-span").text(data.nickName);
+                        $("#employer-span").text(data.employer);
+                        $("#position-span").text(data.position);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<h1>jQuery Ajax 学习</h1>
+<div id="main-panel">
+    <div id="top-panel">
+        <button id="btn1">Ajax加载用户数据</button>
+    </div>
+    <div id="user-panel">
+        <div id="data-panel" style="border: 1px solid blue; width: 200px; height: 200px;">
+            <div id="loading-panel">
+                <span>正在加载用户数据......</span>
+            </div>
+            <div id="user-detail-panel">
+                用户编号：<span id="userid-span"></span><br>
+                用户名：<span id="user-name-span"></span><br>
+                密   码：<span id="password-spen"></span><br>
+                花   名：<span id="nick-name-span"></span><br>
+                任职公司：<span id="employer-span"></span><br>
+                职   位：<span id="position-span"></span>
+            </div>
+        </div>
+        <div style="height: 40px; width: 1000px; background-color: cornflowerblue">
+            <h2>这个区域不会刷新</h2>
+        </div>
+    </div>
+</div>
+</body>
+</html>
