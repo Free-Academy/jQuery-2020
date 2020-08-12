@@ -9,6 +9,10 @@
 *.DS_Store
 .idea/
 
+# eclipse
+*.project
+.settings/
+
 # BlueJ files
 *.ctxt
 
