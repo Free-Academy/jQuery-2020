@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>chapter3-1</title>
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("select").change(function () {
+                let img = $("select").val();
+                console.log(img);
+                $("body").attr("background", "img/"+img)
+                    .attr("background-repeat", "no-repeat")
+                    .attr("background-size", "100% 100%");
+            });
+        });
+    </script>
+</head>
+<body background="img/1.jpeg">
+    <div class="select-div" style="margin: auto;">
+        切换背景：
+        <select>
+            <option value="1.jpeg">天空</option>
+            <option value="2.jpeg">舔屏</option>
+            <option value="3.jpeg">汽车</option>
+            <option value="4.jpeg">秋意</option>
+        </select>
+    </div>
+</body>
+</html>
