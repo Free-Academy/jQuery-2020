@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>chapter3-3</title>
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#load-panel").hide();
+            $("#data-panel").hide();
+            //get ajax
+            $("#load-product-btn-get").click(function () {
+                $("#data-panel").hide();
+                $("#load-panel").show();
+                $("table tbody").empty();
+                $.get(
+                    "product/list.do",
+                    function (response) {
+                        console.log(response);
+                        loadData(response);
+                    },
+                    "json"
+                );
+            });
+            //post ajax
+            $("#load-product-btn-post").click(function () {
+                $("#data-panel").hide();
+                $("#load-panel").show();
+                $("table tbody").empty();
+                $.post(
+                    "product/list.do",
+                    "",//发送参数
+                    function (response) {
+                        console.log(response);
+                        loadData(response);
+                    },
+                    "json"
+                );
+            });
+
+            //渲染数据
+            function loadData(response) {
+                //渲染数据
+                let productArr = response.data;
+                let data = $("table tbody").html();
+                $.each(productArr, function (i, p) {
+                    let row = "<tr id='row_"+ add(i) +"' class='tr-default'>";
+                    row = row + "<td>"+ add(i) +"</td>";
+                    row = row + "<td>"+ p.productName +"</td>";
+                    row = row + "<td>"+ p.supplier.suppName +"</td>";
+                    row = row + "<td>"+ p.specs.specName +"</td>";
+                    row = row + "<td>"+ p.specs.specAttr +"</td>";
+                    row = row + "<td align='center'><button name='remove'>删除</button></td>";
+                    row = row + "</tr>";
+                    data = data + row;
+                });
+                $("table tbody").html(data);
+                $("#load-panel").hide();
+                $("#data-panel").show();
+                //动态添加事件
+                initAction();
+            }
+
+            //求和
+            function add(i) {
+                return i + 1;
+            }
+
+            //提交按钮事件
+            $("button[name='submit']").click(function () {
+                save();
+            });
+
+            //保存
+            function save(){
+                let rowArr = $("table tbody tr");
+                let rowCount = add(rowArr.length);
+                //获取数据
+                let productName = $("#productName").val();
+                let supplier = $("#supplier").val();
+                let specs = $("#specs").val();
+                let specsAttr = $("#specsAttr").val();
+                let appendDataHtml = "<tr class='tr-default'>" +
+                    "<td>"+ rowCount +"</td>" +
+                    "<td>"+ productName +"</td>" +
+                    "<td>"+ supplier +"</td>" +
+                    "<td>"+ specs +"</td>" +
+                    "<td>"+ specsAttr +"</td>" +
+                    "<td align='center'><button name='remove'>删除</button></td>" +
+                    "</tr>";
+                $("table tbody").append(appendDataHtml);
+                //动态添加事件
+                initAction();
+            }
+
+            function initAction(){
+                // 删除按钮添加事件
+                $("button[name='remove']").on("click", function () {
+                    $(this).closest("tr").remove();
+                });
+                // 鼠标移入移出变色
+                $("tbody > tr").mouseover(function () {
+                    console.log(this);
+                    // $(this).addClass("tr-mouse-over");
+                    $(this).attr("class", "tr-mouse-over");
+                }).mouseout(function () {
+                    console.log(this);
+                    // $(this).removeClass("tr-mouse-out");
+                    $(this).attr("class", "tr-default");
+                });
+                // 隔行换色
+                // $("tbody > tr:odd").css("background","#fff8d6");
+            }
+
+            //重置按钮事件
+            $("#reset").click(function () {
+                $("detail-spanel, input").val("");
+            });
+
+            $("#style-select").change(function () {
+                console.log("change");
+                $("#detail-spanel").css("font-color", "red");
+            });
+
+        });
+    </script>
+    <style type="text/css">
+        .tr-mouse-over {
+            background: #ffbc03;
+        }
+        .tr-default:nth-of-type(odd){
+            background: #ffedbb;
+        }
+        .tr-default:nth-of-type(even){
+            background: #fbffbf;
+        }
+        table {
+            border: 1px solid #ffd566;
+            width: 1200px;
+            border-spacing: 1px 1px;
+            line-height: 32px;
+            /*background: #ff8f02;*/
+        }
+        table tr th {
+            collapse: 0px;
+            padding: 0px;
+            align-content: center;
+            background-color: #ff860b;
+        }
+        table tr td {
+            text-align: center;
+            collapse: 0px;
+            padding: 0px;
+            /*background: white;*/
+        }
+        button {
+            border: 1px solid orange;
+            background-color: beige;
+        }
+        hr {
+            border: 1px solid orange;
+        }
+        #list-panel {
+            width: 1200px;
+            border: 0px;
+        }
+    </style>
+</head>
+<body>
+<div id="main-panel">
+    <div id="list-panel">
+        <div id="list-top">
+            <button id="load-product-btn-get">加载商品列表(get请求)</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="load-product-btn-post">加载商品列表(post请求)</button>
+        </div>
+        <hr>
+        <div id="data-panel">
+            <table>
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>商品名称</th>
+                        <th>供应商</th>
+                        <th>规格名称</th>
+                        <th>规格属性</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div id="load-panel">
+            <span style="color: orange">正在加载数据.....</span>
+        </div>
+        <hr>
+        <div>
+            <h2>商品信息：</h2>
+            <ul>商品名称：<input id="productName" /></ul>
+            <ul>供 应 商： <input id="supplier" /></ul>
+            <ul>规格名称：<input id="specs" /></ul>
+            <ul>规格属性：<input id="specsAttr" /></ul>
+            <ul><button name="submit">提 交</button>&nbsp;&nbsp;&nbsp;&nbsp;<button id="reset">重 置</button></ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

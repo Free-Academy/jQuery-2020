@@ -17,6 +17,7 @@ import java.util.List;
 
 @WebServlet(name = "ProductServlet", urlPatterns = "/product/list.do")
 public class ProductServlet extends HttpServlet {
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
@@ -25,7 +26,6 @@ public class ProductServlet extends HttpServlet {
         List<Product> productList = new ArrayList<>(10);
         for (int i = 1; i <= 5; i++) {
             Product product = new Product();
-            product.setId(i);
             product.setProductName("商品名称" + i);
             Supplier supplier = new Supplier();
             supplier.setId(100);
