@@ -14,13 +14,14 @@
                 //get value by id
                 let userNameElement = document.getElementById("userName");
                 let userName = userNameElement.value;
-                console.log(userName);
+                alert(userName);
+                // console.log(userName);
                 //get element by name
                 let arr = document.getElementsByName("nickName").values();
                 //遍历arr数组，这里的arr是name="nickName"，所有元素的数组
                 for (let element of arr) {
-                    // console.log(element)
-                    console.log(element.value);
+                    alert(element.value)
+                    // console.log(element.value);
                 }
             }
         }
@@ -30,9 +31,15 @@
                 let userName = $("input:eq(0)").val();
                 let nickName1 = $("input:eq(1)").val();
                 let nickName2 = $("input:eq(2)").val();
-                console.log(userName);
-                console.log(nickName1);
-                console.log(nickName2);
+                alert(userName);
+                alert(nickName1);
+                alert(nickName2);
+                // alert($("input:eq(0)"));
+                // console.log($("input:eq(0)"));
+
+                // console.log(userName);
+                // console.log(nickName1);
+                // console.log(nickName2);
             });
         });
     </script>

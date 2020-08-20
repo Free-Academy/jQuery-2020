@@ -40,10 +40,10 @@
             function loadData(response) {
                 //渲染数据
                 let productArr = response.data;
-                let data = "<tr><td>商品编号</td><td>商品名称</td><td>供应商</td><td>规格名称</td><td>规格属性</td></tr>";
+                let data = "<tr><td>商品名称</td><td>供应商</td><td>规格名称</td><td>规格属性</td></tr>";
                 $.each(productArr, function (i, p) {
                     let row = "<tr>";
-                    row = row + "<td>"+ p.id +"</td>";
+                    // row = row + "<td>"+ p.id +"</td>";
                     row = row + "<td>"+ p.productName +"</td>";
                     row = row + "<td>"+ p.supplier.suppName +"</td>";
                     row = row + "<td>"+ p.specs.specName +"</td>";
